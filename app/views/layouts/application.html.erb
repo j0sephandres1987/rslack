@@ -10,6 +10,17 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="ui grid">
+      <div class="three wide column">
+        <div class="ui sidebar inverted visible vertical menu red">
+        </div>
+      </div>
+      <div class="twelve wide column">
+        <%= yield %>
+      </div>
+      <div class="one wide column">
+
+      </div>
+    </div>
   </body>
 </html>
