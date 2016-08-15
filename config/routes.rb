@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'teams/create'
+
+  post 'teams/create_team'
+
+  get 'teams/list'
+
+  get 'rooms/show'
+
   devise_for :users
   root to: 'rooms#show'
 

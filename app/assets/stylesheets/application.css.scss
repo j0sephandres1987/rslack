@@ -14,3 +14,14 @@
  *= require_self
  */
  @import "semantic-ui";
+
+#messages {
+  border: 1px solid blue;
+  overflow-y: scroll;
+  max-height: 90%;
+  min-height: 90%;
+  height: 90%;
+  width: 78%;
+  position: fixed;
+  bottom: 0;
+}

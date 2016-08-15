@@ -1,13 +1,13 @@
-(function() {
+$(document).ready(function() {
   var messages = $("#messages");
   messages.scrollTop(messages.prop('scrollHeight'));
   $("#message_input").focus();
 
-  $(document).keypress(function(e) {
-    if(e.keyCode == 13 && e.target.value) {
-      App.room.speak(e.target.value);
-      e.target.value = "";
-      e.preventDefault();
+  $("#message_input").keypress(function(e) {
+    if(e.keyCode == 13 && $("#message_input").val()) {
+      console.log("ikgsdfh");
+      App.room.speak($("#message_input").val());
+      $("#message_input").val("");
     }
   });
 });
