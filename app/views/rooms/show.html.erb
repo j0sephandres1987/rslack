@@ -1,4 +1,5 @@
 <div id="messages">
+  <h1 class="header"><%= request.host %></h1>
   <%= render @messages %>
 </div>
 <div class="ui fluid left action input" style="padding-bottom:2%;position: fixed;bottom: 0;width: 78%;">
@@ -7,3 +8,21 @@
   </div>
   <input type="text" id="message_input">
 </div>
+<script>
+  $(document).ready(function() {
+  console.log("loaded...");
+  var room = window.location.href.split("/").pop();
+  var messages = $("#messages");
+  messages.scrollTop(messages.prop('scrollHeight'));
+  $("#message_input").focus();
+
+  $("#message_input").keypress(function(e) {
+  console.log($("#message_input").val());
+  if(e.keyCode == 13 && $("#message_input").val()) {
+  //App.room.speak($("#message_input").val(),room_name);
+  App.room.speak($("#message_input").val(), room);
+  $("#message_input").val("");
+  }
+  });
+  });
+</script>

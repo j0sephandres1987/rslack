@@ -1,11 +1,20 @@
 Rails.application.routes.draw do
+
+  match ':controller(/:action(/:id))', :via => [:get, :post, :patch, :delete]
+
   get 'teams/create'
 
   post 'teams/create_team'
 
+  post 'rooms/create_room'
+
   get 'teams/list'
 
+  get 'teams/team'
+
   get 'rooms/show'
+
+  get ":team_name/rooms/:room_name", to: 'rooms#show', as: :room
 
   devise_for :users
   root to: 'rooms#show'

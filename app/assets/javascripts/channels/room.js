@@ -12,7 +12,10 @@ App.room = App.cable.subscriptions.create("RoomChannel", {
     $("#messages").append(data);
   },
 
-  speak: function(message) {
-    return this.perform('speak', {message: message});
+  /*speak: function(message, room_name) {
+    return this.perform('speak', {message: message, room_name: room_name});
+  }*/
+  speak: function(message, room) {
+   return this.perform('speak', {message: message, room: room});
   }
 });

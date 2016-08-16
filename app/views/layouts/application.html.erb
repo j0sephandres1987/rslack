@@ -11,7 +11,25 @@
 
   <body>
     <% if @chat_room %>
+    <div class="ui small modal" style="padding: 4em;">
+      <h1>Create new room</h1>
+      <%= form_for @new_room, url: rooms_create_room_path, html: {class: "ui form"}  do |f| %>
+        <div class="field">
+          <%= f.text_field :name, placeholder: "Name of room" %>
+          <%= f.hidden_field :team_id, value: @team.id %>
+        </div>
+        <%= f.submit "submit", class: "button ui" %>
+      <% end %>
+    </div>
       <div class="ui menu">
+        <div class="item">
+          <h3 class="header" style="margin-left: 220px;"><%= "# #{@room.name}"%></h3>
+        </div>
+        <div class="item">My Teams</div>
+        <div class="item">Edit Profile</div>
+        <div class="item">
+          <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "inverted" %>
+        </div>
         <div class="right item">
           <%= link_to  raw("<i class='ui icon add square'></i>")+"Create team", teams_create_path %>
         </div>
@@ -21,17 +39,25 @@
       <div class="three wide column">
         <% if @chat_room %>
           <div class="ui sidebar inverted visible vertical menu red">
-            <div class="ui inline dropdown">
-              <div class="text">
-                <img class="ui avatar image" src="/images/avatar/small/jenny.jpg">
-                Jenny Hess
-              </div>
-              <i class="dropdown icon"></i>
-              <div class="menu inverted fluid">
-                <div class="item">
-                  <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "inverted" %>
+            <div class="item">
+              <div class="ui inline dropdown inverted">
+                <div class="text">
+                  <img class="ui avatar image" src="/images/avatar/small/jenny.jpg">
+                 <%= @team.name %>
+                </div>
+                <i class="dropdown icon"></i>
+                <div class="menu inverted fluid">
+                  <div class="item">
+                    sjdbaH
+                  </div>
                 </div>
               </div>
+            </div>
+            <div class="item">
+              <ul class="rooms_list_ul">
+                <li><h2>ROOMS<span style="margin-left: 8%;"><a id="create-room" href="" style="padding-left:0.3em;padding-right:0.3em;cursor:pointer;font-weight:bold;border: 3px solid white;border-radius: 100px;">+</a></span></h2></li>
+                <%= render @rooms %>
+              </ul>
             </div>
           </div>
         <% end %>
@@ -42,5 +68,12 @@
       <div class="one wide column">
       </div>
     </div>
+    <script type="text/javascript" charset="utf-8">
+      $("#create-room").click(function(e) {
+        e.preventDefault();
+        console.log("clicked");
+        $('.small.modal').modal('show');
+      });
+    </script>
   </body>
 </html>

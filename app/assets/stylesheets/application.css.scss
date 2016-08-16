@@ -25,3 +25,27 @@
   position: fixed;
   bottom: 0;
 }
+
+.rooms_list_ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.rooms_list_ul li {
+  left: 0;
+  padding: 0.6em;
+  border-radius: 10px;
+}
+
+.rooms_list_ul li a {
+  color: white;
+  font-size: 1em;
+}
+
+.rooms_list_ul li:hover {
+  background: darkred;
+}
+
+.rooms_list_ul_li_active {
+  background: darkred;
+}
