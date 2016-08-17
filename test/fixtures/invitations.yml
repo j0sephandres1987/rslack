@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  team: one
+  status: 
+  email: 
+  user: one
+
+two:
+  team: two
+  status: 
+  email: 
+  user: two

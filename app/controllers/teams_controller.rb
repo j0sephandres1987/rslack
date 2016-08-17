@@ -7,14 +7,12 @@ class TeamsController < ApplicationController
   def create_team
     team = Team.new(team_params)
     team.user = current_user
+    current_user.teams << team
     Room.create_default_rooms(team)
     team.save
     respond_to do |format|
       format.html { redirect_to root_path }
     end
-  end
-
-  def list
   end
 
   private

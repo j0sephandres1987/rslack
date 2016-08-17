@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  post 'invitations/send_invitation_email'
+
   get 'home/welcome'
 
   match ':controller(/:action(/:id))', :via => [:get, :post, :patch, :delete]
