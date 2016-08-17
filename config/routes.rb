@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'home/welcome'
+
   match ':controller(/:action(/:id))', :via => [:get, :post, :patch, :delete]
 
   get 'teams/create'
@@ -17,7 +19,7 @@ Rails.application.routes.draw do
   get ":team_name/rooms/:room_name", to: 'rooms#show', as: :room
 
   devise_for :users
-  root to: 'rooms#show'
+  root to: 'home#welcome'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 

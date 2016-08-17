@@ -11,30 +11,57 @@
 
   <body>
     <% if @chat_room %>
-    <div class="ui small modal" style="padding: 4em;">
-      <h1>Create new room</h1>
-      <%= form_for @new_room, url: rooms_create_room_path, html: {class: "ui form"}  do |f| %>
+      <div id="new-room-modal" class="ui small modal" style="padding: 4em;">
+        <h1>Create new room</h1>
+        <%= form_for Room.new, url: rooms_create_room_path, html: {class: "ui form"}  do |f| %>
+          <div class="field">
+            <%= f.text_field :name, placeholder: "Name of room" %>
+            <%= f.hidden_field :team_id, value: @team.id %>
+          </div>
+          <%= f.submit "submit", class: "button ui" %>
+        <% end %>
+      </div>
+    <% end %>
+    <div id="new-team-modal" class="ui small modal" style="padding: 4em;">
+      <h1>Create new team</h1>
+      <%= form_for Team.new, url: teams_create_team_path, html: {class: "ui form"}  do |f| %>
         <div class="field">
-          <%= f.text_field :name, placeholder: "Name of room" %>
-          <%= f.hidden_field :team_id, value: @team.id %>
+          <label>Name</label>
+          <%= f.text_field :name, placeholder: "Name of team" %>
         </div>
         <%= f.submit "submit", class: "button ui" %>
       <% end %>
     </div>
       <div class="ui menu">
+        <% if !@chat_room %>
+          <div class="item borderless left">
+            <a href="/"><%= image_tag 'logo.png', style: 'width:30%;'%></a>
+          </div>
+        <% else %>
         <div class="item">
-          <h3 class="header" style="margin-left: 220px;"><%= "# #{@room.name}"%></h3>
+            <h3 class="header" style="margin-left: 220px;"><%= "# #{@room.name}"%></h3>
         </div>
-        <div class="item">My Teams</div>
-        <div class="item">Edit Profile</div>
-        <div class="item">
-          <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "inverted" %>
+        <% end %>
+        <% if current_user %>
+        <div class="item right" style="width: 12%;">
+          <div class="ui inline dropdown">
+              <i class="icon ui user"></i><%= current_user.username %>
+              <i class="dropdown icon"></i>
+              <div class="menu inverted">
+                <div class="item">
+                  <%= link_to raw("<i class='ui icon power'></i>")+"Sign Out", destroy_user_session_path, method: :delete, class: "inverted" %>
+                </div>
+                <div class="item">
+                  <%= link_to raw("<i class='ui icon tags'></i>")+"My teams", home_welcome_path %>
+                </div>
+                <div class="item">
+                  <a id="create-team" href=""><i class='ui icon add square'></i>Create team</a>
+                </div>
+              </div>
+          </div>
         </div>
-        <div class="right item">
-          <%= link_to  raw("<i class='ui icon add square'></i>")+"Create team", teams_create_path %>
-        </div>
+          <% end %>
       </div>
-    <% end %>
     <div class="ui grid">
       <div class="three wide column">
         <% if @chat_room %>
@@ -42,8 +69,7 @@
             <div class="item">
               <div class="ui inline dropdown inverted">
                 <div class="text">
-                  <img class="ui avatar image" src="/images/avatar/small/jenny.jpg">
-                 <%= @team.name %>
+                 <h3 style="font-weight: bold;"><%= @team.name %></h3>
                 </div>
                 <i class="dropdown icon"></i>
                 <div class="menu inverted fluid">
@@ -63,16 +89,28 @@
         <% end %>
       </div>
       <div class="twelve wide column">
+        <% if alert %>
+          <p class="ui negative message"><%= alert %></p>
+        <% end %>
         <%= yield %>
       </div>
       <div class="one wide column">
       </div>
     </div>
     <script type="text/javascript" charset="utf-8">
-      $("#create-room").click(function(e) {
-        e.preventDefault();
-        console.log("clicked");
-        $('.small.modal').modal('show');
+      $(document).ready(function() {
+        $('.ui.dropdown').dropdown();
+        $('.ui.modal').modal();
+        $("#create-room").click(function(e) {
+          e.preventDefault();
+          console.log("clicked");
+          $('#new-room-modal').modal('show');
+        });
+        $("#create-team").click(function(e) {
+          e.preventDefault();
+          console.log("clicked");
+          $('#new-team-modal').modal('show');
+        });
       });
     </script>
   </body>

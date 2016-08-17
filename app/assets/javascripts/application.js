@@ -17,9 +17,6 @@
 //= require_tree .
 
 $(document).ready(function() {
-  $('.ui.dropdown').dropdown();
-  $('.ui.modal').modal();
-
 
 });
 

@@ -5,12 +5,11 @@ class RoomsController < ApplicationController
     @chat_room = true
     begin
       @team = Team.find_by(name: params[:team_name])
-      @room = Room.find_by(name: params[:room_name])
+      @room = Room.where(["name = ? and team_id = ?", params[:room_name], @team.id]).first
       @rooms = @team.rooms
-      @new_room = Room.new
       @messages = @room.messages.limit(50)
     rescue
-      format.html { redirect_to not_founded_room_path }
+      redirect_to root_path
     end
   end
 
