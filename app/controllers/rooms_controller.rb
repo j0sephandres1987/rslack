@@ -5,9 +5,14 @@ class RoomsController < ApplicationController
     @chat_room = true
     begin
       @team = Team.find_by(name: params[:team_name])
-      @room = Room.where(["name = ? and team_id = ?", params[:room_name], @team.id]).first
-      @rooms = @team.rooms
-      @messages = @room.messages.limit(50)
+      begin current_user.teams.find(@team.id)
+        @room = Room.where(["name = ? and team_id = ?", params[:room_name], @team.id]).first
+        @rooms = @team.rooms
+        @messages = @room.messages.limit(50)
+      rescue
+        flash[:alert] = "You are not a member of this team"
+        redirect_to root_path
+      end
     rescue
       redirect_to root_path
     end
